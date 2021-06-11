@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 20,
         width: '100%',
-        marginTop: '10%',
     },
     text: {
         color: '#fff',

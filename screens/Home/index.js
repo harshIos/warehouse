@@ -13,7 +13,9 @@ import Button from '../../components/button'
 import Card from "../../components/card"
 import DarkCard from "../../components/dark-card"
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+    const  scannedInfo  = route?.params?.scannedInfo;
+    console.log(scannedInfo)
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: '#2099e7' }]}>
             <StatusBar barStyle="light-content" backgroundColor="#2099e7" />
@@ -22,15 +24,17 @@ const Home = ({ navigation }) => {
                     <Image source={require('../../assets/qrscanner.png')} style={styles.scannerImage} />
                 </TouchableOpacity>
                 <View style={styles.textContainer} >
-                    <DarkCard title="Tracking Number" value="1234567890" />
-                    <DarkCard title="Reference Number" value="1234567890" />
+                    <DarkCard title="Tracking Number" value={scannedInfo} />
+                    <DarkCard title="Reference Number" value={scannedInfo} />
                 </View>
             </View>
             <View style={styles.info}>
-                <Card title="Customer Information" value="Reference Number" />
-                <Card title="Contact Information" value="Reference Number" />
-                <Card title="Account Name" value="Reference Number" />
-                <Card title="Address" value="Reference Number" addedClasses={styles.addressInfoContainer}/>
+                <View style={styles.subInfo}>
+                    <Card title="Customer Information" value="Reference Number" />
+                    <Card title="Contact Information" value="Reference Number" />
+                    <Card title="Account Name" value="Reference Number" />
+                    <Card title="Address" value="Reference Number" addedClasses={styles.addressInfoContainer}/>
+                </View>
                 <Button onPress={() => navigation.navigate('AddProduct')} title="NEXT"/>
             </View>
         </SafeAreaView>
@@ -62,14 +66,21 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '2%'
+        padding: hp('1%')
+    },
+    subInfo: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     textContainer: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: '6%'
+        marginTop: '4%',
+        marginBottom: '16%'
     },
     addressInfoContainer: {
         height: '24%',

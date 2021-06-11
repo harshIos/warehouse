@@ -7,8 +7,7 @@ const DarkCard = ({ title, value }) => {
         <View style={styles.textView} >
             <Text style={styles.baseText}>{title}</Text>
             <TextInput
-                editable
-                maxLength={40}
+                editable={false}
                 value={value}
                 keyboardType="numeric"
                 style={styles.input}
@@ -21,11 +20,11 @@ const styles = StyleSheet.create({
     textView: {
         backgroundColor: '#2099e7',
         borderWidth: 1,
-        padding: 20,
+        padding: hp('2%'),
         borderRadius: 20,
         borderColor: '#fff',
-        width: '45%',
-        margin: 6
+        width: '46%',
+        marginHorizontal: 6 
     },
     baseText: {
         color: '#fff',
@@ -35,10 +34,10 @@ const styles = StyleSheet.create({
     input: {
         marginTop: 6,
         color: '#fff',
-        fontSize: hp('2%'),
+        fontSize: hp('1.5%'),
         borderBottomWidth: 1,
         borderBottomColor: '#fff',
-        width: '50%',
+        width: '100%',
         fontWeight: 'bold'
     },
 });
