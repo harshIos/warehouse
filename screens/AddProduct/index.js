@@ -52,7 +52,7 @@ export default function AddProductScreen({ navigation }) {
       textStyle={{
         fontSize: hp('2%'),
         padding: 10,
-        width: '60%'
+        width: '80%',
       }}
       dropdownStyle={{
         width: '25%',
@@ -87,7 +87,7 @@ export default function AddProductScreen({ navigation }) {
       </View>
       <TextInput
         style={styles.quantityInput}
-        defaultValue={"0"}
+        defaultValue={inputList[index].quantity || "0"}
         onChangeText={(text) => updateItem(index, "quantity", text)}
       />
 
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
   },
   arrow_icon: {
-    marginLeft: '50%',
+    marginLeft: '30%',
     height: hp('2%'),
     width: wp('2%')
   }
