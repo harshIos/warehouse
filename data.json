@@ -1,0 +1,27 @@
+{
+    "Apple": [
+        "iPhone X",
+        "iPhone 8 Plus",
+        "iPhone 8",
+        "iPhone 7 Plus",
+        "iPhone 7",
+        "iPhone 6s",
+        "iPhone 6s",
+        "iPhone SE"
+    ],
+    "Samsung": [
+        "S",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S20",
+        "S21"
+    ],
+    "Others" : []
+}
