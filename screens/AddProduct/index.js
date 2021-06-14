@@ -30,11 +30,6 @@ export default function AddProductScreen({ navigation }) {
     setInputList(inputList)
   }
 
-  const updateItemArray = (index, key, value) => {
-    inputList[index][key] = value
-    setInputList(inputList);
-    setRefresh(!refresh)
-  }
   const renderDropdown = (index, options, field) => {
     const defaultValue = inputList[index]
     return <ModalDropdown
@@ -79,10 +74,8 @@ export default function AddProductScreen({ navigation }) {
 
   const Item = ({ id, index }) => (
     <View style={styles.item}>
-      {/* <Text style={styles.title}>{id}</Text> */}
       <View style={styles.dropdownContainer}>
         {renderDropdown(index, productTypeList, "productType")}
-
         {renderDropdown(index, inputList[index].list, "pickList")}
       </View>
       <TextInput
@@ -90,7 +83,6 @@ export default function AddProductScreen({ navigation }) {
         defaultValue={inputList[index].quantity || "0"}
         onChangeText={(text) => updateItem(index, "quantity", text)}
       />
-
       <View style={styles.btnContainer}>
         <Pressable
           onPress={addItem}
@@ -120,10 +112,6 @@ export default function AddProductScreen({ navigation }) {
           keyExtractor={item => item.id}
           ListHeaderComponent={<Header title1="Product Type" title2="PickList" title3="Quantity" addedClasses={styles.headerTextWidth} />}
         />
-        {/* {inputList.map(item => {
-          return <Item id={item.id} key={item.id} />
-        })}*/}
-
       </View>
       <View style={styles.bottomBtnContainer}>
         <Button onPress={() => navigation.goBack()} title="CANCEL" width={"48%"} productType="light" />
