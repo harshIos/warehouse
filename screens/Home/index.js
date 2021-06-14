@@ -24,8 +24,8 @@ const Home = ({ navigation, route }) => {
                     <Image source={require('../../assets/qrscanner.png')} style={styles.scannerImage} />
                 </TouchableOpacity>
                 <View style={styles.textContainer} >
-                    <DarkCard title="Tracking Number" value={scannedInfo} />
-                    <DarkCard title="Reference Number" value={scannedInfo} />
+                    <DarkCard title="Tracking Number" value={scannedInfo || '1234567890'} />
+                    <DarkCard title="Reference Number" value={scannedInfo || '1234567890'} />
                 </View>
             </View>
             <View style={styles.info}>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         marginBottom: '16%'
     },
     addressInfoContainer: {
-        height: '24%',
+        height: '26%',
     }
 });
 
