@@ -114,7 +114,7 @@ export default function AddProductScreen({ navigation }) {
         />
       </View>
       <View style={styles.bottomBtnContainer}>
-        <Button onPress={() => navigation.goBack()} title="CANCEL" width={"48%"} productType="light" />
+        <Button onPress={() => navigation.goBack()} title="CANCEL" width={"48%"} type="light" />
         <Button onPress={() => navigation.navigate('ProductList', { inputList })} title="SAVE" width={"48%"} />
       </View>
     </SafeAreaView>
