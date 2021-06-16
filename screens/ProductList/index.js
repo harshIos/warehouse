@@ -25,7 +25,7 @@ export default function ProductListScreen({ navigation, route }) {
           ListFooterComponent={() => <View style={styles.listItemSeparator} />}
           renderItem={({ item }) => <ListItem {...item} />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<Header title1="Product Type" title2="PickList" title3="Quantity" />}
+          ListHeaderComponent={<Header title1="Product Type" title2="Product Name" title3="Quantity" />}
         />
       </View>
       <View style={styles.btnContainer}>

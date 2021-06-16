@@ -15,7 +15,7 @@ import DarkCard from "../../components/dark-card"
 
 const Home = ({ navigation, route }) => {
     const  scannedInfo  = route?.params?.scannedInfo;
-    console.log(scannedInfo)
+    
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: '#2099e7' }]}>
             <StatusBar barStyle="light-content" backgroundColor="#2099e7" />

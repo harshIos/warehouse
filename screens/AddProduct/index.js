@@ -110,7 +110,7 @@ export default function AddProductScreen({ navigation }) {
           data={inputList}
           renderItem={({ item, index }) => (<Item {...item} index={index} />)}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<Header title1="Product Type" title2="PickList" title3="Quantity" addedClasses={styles.headerTextWidth} />}
+          ListHeaderComponent={<Header title1="Product Type" title2="Product Name" title3="Quantity" addedClasses={styles.headerTextWidth} />}
         />
       </View>
       <View style={styles.bottomBtnContainer}>
