@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         /* borderRadius: 10, */
         padding: 20,
         backgroundColor: '#e8effa',
-        width: wp('100%')
+        width: wp('96%')
     },
     headerText: {
         fontSize: hp('2%'),

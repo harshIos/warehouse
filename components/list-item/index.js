@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';;
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const ListItem = ({ productType, pickList, quantity }) => {
+const ListItem = ({ productType, productName, quantity }) => {
     return (
         <View style={styles.item}>
             <View style={styles.itemWrapper}>
                 <Text style={styles.title}>{productType}</Text>
             </View>
             <View style={styles.itemWrapper}>
-                <Text style={styles.title}>{pickList}</Text>
+                <Text style={styles.title}>{productName}</Text>
             </View>
             <View style={styles.itemWrapper}>
                 <Text style={styles.title}>{quantity}</Text>

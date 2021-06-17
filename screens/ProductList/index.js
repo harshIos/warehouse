@@ -7,7 +7,7 @@ import Button from "../../components/button"
 import ListItem from "../../components/list-item"
 
 const filterEmptyRows = (rows) => {
-  return rows.filter(item => item.productType !== "" && item.pickList !== "")
+  return rows.filter(item =>  item.quantity !== "0")
 }
 
 export default function ProductListScreen({ navigation, route }) {
