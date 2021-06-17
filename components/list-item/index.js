@@ -2,17 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, } from 'react-native';;
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const ListItem = ({ productType, pickList, quantity }) => {
+const ListItem = ({ label, value }) => {
     return (
         <View style={styles.item}>
-            <View style={styles.itemWrapper}>
-                <Text style={styles.title}>{productType}</Text>
+            <View style={styles.label}>
+                <Text style={styles.title}>{label}</Text>
             </View>
-            <View style={styles.itemWrapper}>
-                <Text style={styles.title}>{pickList}</Text>
-            </View>
-            <View style={styles.itemWrapper}>
-                <Text style={styles.title}>{quantity}</Text>
+            <View style={styles.value}>
+                <Text style={styles.title}>{value}</Text>
             </View>
         </View>
     )
@@ -33,9 +30,12 @@ const styles = StyleSheet.create({
         color: '#aaaaaa',
         /* textTransform: 'capitalize' */
     },
-    itemWrapper: {
-        width: '36%'
+    label: {
+        width: '80%'
     },
+    value: {
+        width: '20%'
+    }
 })
 
 export default ListItem

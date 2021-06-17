@@ -1,31 +1,40 @@
-{
-    "Apple": [
-        "iPhone X",
-        "iPhone 8 Plus",
-        "iPhone 8",
-        "iPhone 7 Plus",
-        "iPhone 7",
-        "iPhone 6s",
-        "iPhone 6s",
-        "iPhone SE"
-    ],
-    "Samsung": [
-        "S",
-        "S2",
-        "S3",
-        "S4",
-        "S5",
-        "S6",
-        "S7",
-        "S8",
-        "S9",
-        "S10",
-        "S20",
-        "S21"
-    ],
-    "Others" : [
-        "i6",
-        "i6 PLUS",
-        "i6S"
-    ]
-}
+[
+    {
+        "title": "Apple",
+        "data": [
+            "iPhone X",
+            "iPhone 8 Plus",
+            "iPhone 8",
+            "iPhone 7 Plus",
+            "iPhone 7",
+            "iPhone 6",
+            "iPhone 6s",
+            "iPhone SE"
+        ]
+    },
+    {
+        "title": "Samsung",
+        "data": [
+            "S",
+            "S2",
+            "S3",
+            "S4",
+            "S5",
+            "S6",
+            "S7",
+            "S8",
+            "S9",
+            "S10",
+            "S20",
+            "S21"
+        ]
+    },
+    {
+        "title": "Others",
+        "data": [
+            "i6",
+            "i6 PLUS",
+            "i6S"
+        ]
+    }
+];

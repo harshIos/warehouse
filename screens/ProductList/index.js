@@ -7,7 +7,7 @@ import Button from "../../components/button"
 import ListItem from "../../components/list-item"
 
 const filterEmptyRows = (rows) => {
-  return rows.filter(item => item.productType !== "" && item.pickList !== "")
+  return rows.filter(item => item.value !== 0)
 }
 
 export default function ProductListScreen({ navigation, route }) {
@@ -23,9 +23,9 @@ export default function ProductListScreen({ navigation, route }) {
           ListEmptyComponent={() => <View style={styles.item}><Text style={styles.title}>No Products added</Text></View>}
           ItemSeparatorComponent={() => <View style={styles.listItemSeparator} />}
           ListFooterComponent={() => <View style={styles.listItemSeparator} />}
-          renderItem={({ item }) => <ListItem {...item} />}
+          renderItem={({ item }) => <ListItem {...item} /> }
           keyExtractor={item => item.id}
-          ListHeaderComponent={<Header title1="Product Type" title2="Product Name" title3="Quantity" />}
+          ListHeaderComponent={<Header title1="Product Type" title2="" title3="Quantity" addedClasses={{marginLeft: '15%'}}/>}
         />
       </View>
       <View style={styles.btnContainer}>

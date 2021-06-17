@@ -1,117 +1,81 @@
 import * as React from 'react';
-import { useState } from 'react'
-import { View, Text, SafeAreaView, StatusBar, StyleSheet, FlatList, TextInput, Pressable, Image } from 'react-native';;
-import ModalDropdown from 'react-native-modal-dropdown';
+import { useState, useEffect } from 'react'
+import { View, Text, SafeAreaView, StatusBar, StyleSheet, SectionList, TextInput } from 'react-native';;
+
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import uuid from 'react-native-uuid';
 
 import Header from "../../components/header"
 import Button from "../../components/button"
-import data from "../../data.json"
+import list from "../../data.json"
 
 export default function AddProductScreen({ navigation }) {
   const [refresh, setRefresh] = useState(false)
-  const field = { productType: "", pickList: "", quantity: 0, list: [...data['Apple'], ...data['Samsung']] }
-  const [inputList, setInputList] = useState([{ id: uuid.v4(), ...field }]);
+  const [inputList, setInputList] = useState([]);
 
-  const addItem = () => {
-    setInputList(existingItems => [...existingItems, { id: uuid.v4(), ...field }])
+  useEffect(() => {
+    const productList = []
+    list.forEach(({ data }) => {
+      data.forEach(item => {
+        const label = item?.replaceAll(" ", "_")?.toLowerCase();
+        productList.push({ label, value: 0 })
+      })
+    })
+    setInputList(productList)
+  }, [])
+
+  const updateItem = (label, value) => {
+    const result = inputList.map((item, index) => {
+      if (item.label === label) {
+        return { label: label, value: value }
+      } else {
+        return item
+      }
+    })
+
+    /* const index = inputList.findIndex(item => item.label === label)
+    const result = [...inputList]
+    result[index].value = value
+    console.log(index) */
+    setInputList(result)
   }
 
-  const deleteItem = (idToRemove) => {
-    if (inputList.length > 1) {
-      const data = inputList.filter((item) => item.id !== idToRemove)
-      setInputList(data)
-    }
+  const getItem = (label) => {
+    const item = inputList.find(item => item.label === label)
+    return item.value; 
   }
 
-  const updateItem = (index, key, value) => {
-    inputList[index][key] = value
-    setInputList(inputList)
-  }
-
-  const renderDropdown = (index, options, field) => {
-    const defaultValue = inputList[index]
-    return <ModalDropdown
-      defaultValue={defaultValue[field] || "Select"}
-      options={[...options]}
-      onSelect={(idx, value) => {
-        updateItem(index, field, value)
-        if (field === "productType") {
-          inputList[index]['list'] = [...data[value]]
-          setInputList(inputList);
-          setRefresh(!refresh)
-        }
-        console.debug(`index=${index}, field=${field}, idx=${idx}, value='${value}'`);
-      }}
-      textStyle={{
-        fontSize: hp('2%'),
-        padding: 10,
-        width: '80%',
-      }}
-      dropdownStyle={{
-        width: '25%',
-        borderColor: '#aaaaaa',
-        borderWidth: 1,
-        borderRadius: 5,
-      }}
-      dropdownTextStyle={{
-        fontSize: hp('2%'),
-        width: '100%',
-        borderWidth: 0,
-        borderBottomWidth: 1,
-      }}
-      style={{
-        width: '45%',
-        borderWidth: 0,
-        borderBottomWidth: 1,
-      }}
-      renderRightComponent={() => <View><Image source={require('../../assets/arrow-down.png')} style={styles.arrow_icon} /></View>}
-    />
-  }
-
-  const productTypeList = Object.keys(data);
-
-  const Item = ({ id, index }) => (
-    <View style={styles.item}>
-      <View style={styles.dropdownContainer}>
-        {renderDropdown(index, productTypeList, "productType")}
-        {renderDropdown(index, inputList[index].list, "pickList")}
+  const Item = ({ label, value }) => {
+    return (
+      <View style={styles.item}>
+        <View style={styles.label}>
+          <Text style={styles.title}>{value}</Text>
+        </View>
+        <View style={styles.value}>
+          <TextInput
+            style={styles.quantityInput}
+            defaultValue={getItem(label) || '0'}
+            onChangeText={(text) => updateItem(label, text)}
+          />
+        </View>
       </View>
-      <TextInput
-        style={styles.quantityInput}
-        defaultValue={inputList[index].quantity || "0"}
-        onChangeText={(text) => updateItem(index, "quantity", text)}
-      />
-      <View style={styles.btnContainer}>
-        <Pressable
-          onPress={addItem}
-          style={[styles.btn, styles.btnColor]}>
-          <Text style={styles.text}>+</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => deleteItem(id)}
-          disabled={inputList.length === 1}
-          style={styles.btn}>
-          <Text style={styles.text}>x</Text>
-        </Pressable>
-      </View>
-    </View>
-  );
+    )
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#2099e7" />
       <View style={styles.listContainer}>
-        <FlatList
+        {inputList.length > 1 && <SectionList
           extraData={refresh}
           automaticallyAdjustContentInsets={false}
           showsVerticalScrollIndicator={false}
-          data={inputList}
-          renderItem={({ item, index }) => (<Item {...item} index={index} />)}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={<Header title1="Product Type" title2="Product Name" title3="Quantity" addedClasses={styles.headerTextWidth} />}
-        />
+          sections={list}
+          renderItem={({ item }) => <Item label={item?.replaceAll(" ", "_")?.toLowerCase()} value={item} />}
+          keyExtractor={(item, index) => item + index}
+          renderSectionHeader={({ section: { title } }) => (
+            <Header title2={title} addedClasses={{ marginLeft: '20%' }} />
+          )}
+        />}
       </View>
       <View style={styles.bottomBtnContainer}>
         <Button onPress={() => navigation.goBack()} title="CANCEL" width={"48%"} type="light" />
@@ -136,26 +100,25 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 20,
+    paddingHorizontal: 10,
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    width: '90%'
+    alignItems: 'center',
+    width: wp('100%'),
   },
   title: {
     fontSize: hp('2%'),
   },
-  dropdownContainer: {
-    width: '60%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+  label: {
+    width: '80%',
+  },
+  value: {
+    width: '20%',
   },
   quantityInput: {
-    width: '16%',
+    width: '80%',
     padding: 8,
     borderWidth: 1,
-    marginLeft: 50,
     fontSize: hp('2%'),
   },
   btn: {
@@ -199,5 +162,9 @@ const styles = StyleSheet.create({
     marginLeft: '30%',
     height: hp('2%'),
     width: wp('2%')
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: "#fff"
   }
 })
