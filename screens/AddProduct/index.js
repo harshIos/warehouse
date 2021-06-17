@@ -14,12 +14,14 @@ export default function AddProductScreen({ navigation }) {
 
   useEffect(() => {
     const productList = []
-    list.forEach(({ data }) => {
-      data.forEach(item => {
-        const label = item?.replaceAll(" ", "_")?.toLowerCase();
-        productList.push({ label, value: 0 })
+    if (list.length) {
+      list.forEach(({ data }) => {
+        data.length > 1 && data.forEach(item => {
+          const label = item?.replace(/ /g, "_")?.toLowerCase();
+          productList.push({ label, value: 0 })
+        })
       })
-    })
+    }
     setInputList(productList)
   }, [])
 
@@ -41,7 +43,7 @@ export default function AddProductScreen({ navigation }) {
 
   const getItem = (label) => {
     const item = inputList.find(item => item.label === label)
-    return item.value; 
+    return item.value;
   }
 
   const Item = ({ label, value }) => {
@@ -66,11 +68,11 @@ export default function AddProductScreen({ navigation }) {
       <StatusBar barStyle="light-content" backgroundColor="#2099e7" />
       <View style={styles.listContainer}>
         {inputList.length > 1 && <SectionList
-          extraData={refresh}
+          //extraData={refresh}
           automaticallyAdjustContentInsets={false}
           showsVerticalScrollIndicator={false}
           sections={list}
-          renderItem={({ item }) => <Item label={item?.replaceAll(" ", "_")?.toLowerCase()} value={item} />}
+          renderItem={({ item }) => <Item label={item?.replace(/ /g, "_")?.toLowerCase()} value={item} />}
           keyExtractor={(item, index) => item + index}
           renderSectionHeader={({ section: { title } }) => (
             <Header title2={title} addedClasses={{ marginLeft: '20%' }} />
@@ -110,10 +112,11 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
   },
   label: {
-    width: '80%',
+    width: '75%',
   },
   value: {
-    width: '20%',
+    width: '25%',
+    paddingRight: '5%',
   },
   quantityInput: {
     width: '80%',
