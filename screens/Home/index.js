@@ -35,7 +35,7 @@ const Home = ({ navigation, route }) => {
                     <Card title="Account Name" value="Reference Number" />
                     <Card title="Address" value="Reference Number" addedClasses={styles.addressInfoContainer}/>
                 </View>
-                <Button onPress={() => navigation.navigate('AddProduct')} title="NEXT"/>
+                <Button onPress={() => navigation.navigate('SelectCountry')} title="NEXT"/>
             </View>
         </SafeAreaView>
     );

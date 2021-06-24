@@ -18,6 +18,7 @@ import HomeScreen from './screens/Home'
 import ScannerScreen from './screens/Scanner'
 import AddProductScreen from './screens/AddProduct'
 import ProductListScreen from './screens/ProductList'
+import SelectCountryScreen from "./screens/SelectCountry"
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const App: () => Node = () => {
         }} /* headerMode="none" */>
           <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Scanner" component={ScannerScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="SelectCountry" component={SelectCountryScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddProduct" component={AddProductScreen} options={{ title: 'Shipping Inventory' }} />
           <Stack.Screen name="ProductList" component={ProductListScreen} options={{ title: 'Shipping Inventory' }} />
         </Stack.Navigator>
