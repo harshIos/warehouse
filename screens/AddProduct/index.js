@@ -8,21 +8,32 @@ import Button from "../../components/button"
 import data from "../../data.json"
 import data1 from "../../data1.json"
 
+function replaceName(name) {
+  return name.replace(/ /g, "_").toLowerCase()
+}
+
 export default function AddProductScreen({ navigation }) {
   const [inputList, setInputList] = useState([]);
-  //const [partList, setPartList] = useState([]);
 
   useEffect(() => {
     const updatedList = []
-    data["Apple"].forEach((item, index) => {
-      updatedList.push({ itemNo: index, productType: "Apple", productName: item, productKeyName: item.replace(/ /g, "_").toLowerCase(), quantity: "0", id: uuid.v4() })
+
+    data["Apple"].forEach((productName, index) => {
+      updatedList.push({ itemNo: index, productType: "Apple", productName, productKeyName: replaceName(productName), quantity: "", id: uuid.v4() })
     })
 
     Object.keys(data1).map(productType => {
-      data1[productType].forEach((item, index) => {
-        updatedList.push({ itemNo: updatedList.length+index, productType, productName: item, productKeyName: item.replace(/ /g, "_").toLowerCase(), quantity: "0", id: uuid.v4() })
+      data1[productType].forEach((productName, index) => {
+        let len = updatedList.length
+        updatedList.push({ itemNo: len, productType, productName, productKeyName: replaceName(productName), quantity: "", id: uuid.v4() })
       })
     });
+
+    len = updatedList.length
+    data["Miscellaneous"].forEach((productName, index) => { 
+      let len = updatedList.length
+      updatedList.push({ itemNo: len, productType: "Miscellaneous", productName: "", productKeyName: replaceName(productName), quantity: "", id: uuid.v4() })
+    })
 
     setInputList(updatedList)
   }, [])
@@ -42,6 +53,7 @@ export default function AddProductScreen({ navigation }) {
           <TextInput
             style={styles.quantityInput}
             defaultValue={inputList[index]?.quantity}
+            placeholder="0"
             onChangeText={(text) => updateItem(index, "quantity", text)}
           /* onFocus={() => {
             if(inputList[index].quantity == 0) {
@@ -54,16 +66,48 @@ export default function AddProductScreen({ navigation }) {
     )
   };
 
+  const MiscellaneousItem = ({ index}) => {
+    return (
+      <View style={[styles.item, {width: '50%'}]}>
+        {/* <View>
+          <Text style={styles.title}>Miscellaneous</Text>
+        </View> */}
+        <View style={[styles.quantity, styles.border, {width : '65%'}]}>
+          <TextInput
+            style={styles.quantityInput}
+            defaultValue={inputList[index]?.productName}
+            placeholder="Miscellaneous"
+            onChangeText={(text) => updateItem(index, "productName", text)}
+          />
+        </View>
+        <View style={[styles.quantity, styles.border]}>
+          <TextInput
+            style={styles.quantityInput}
+            defaultValue={inputList[index]?.quantity}
+            placeholder="0"
+            onChangeText={(text) => updateItem(index, "quantity", text)}
+          />
+        </View>
+      </View>
+    )
+  }; 
+
+  const RenderMiscellaneousItem = ({ productType }) => {
+    return inputList
+      .filter(item => item.productType === productType)
+      .map(item => <MiscellaneousItem key={item.id} {...item} index={item.itemNo} />)
+  }
+
   const RenderItems = ({ productType }) => {
     return inputList
       .filter(item => item.productType === productType)
-      .map((item, index) => {
-        return <Item key={item.id} {...item} index={item.itemNo} />
+      .map(item => {
+          return <Item key={item.id} {...item} index={item.itemNo} />
       })
   }
 
   const Heading = () => {
-    return <View style={[styles.item, { backgroundColor: '#e8effa', padding: 20 }]}>
+    return <View style={[styles.item, { backgroundColor: '#e8effa', padding: 15 }]}>
       <View style={styles.label}>
         <Text style={styles.heading_title}>Description</Text>
       </View>
@@ -85,9 +129,16 @@ export default function AddProductScreen({ navigation }) {
     </View>
   </React.Fragment>
 
+  const PartListHeader = ({title}) => 
+    <View >
+      <Text style={styles.partListLabel}>{title}</Text>
+    </View>
+
+    
   const renderPartList = () => {
     return Object.keys(data1).map(productType => {
       return (<View style={styles.itemArrangement} key={productType}>
+                <PartListHeader title={productType}/>
                 <Heading />
                 <RenderItems productType={productType} />
               </View>)
@@ -104,6 +155,13 @@ export default function AddProductScreen({ navigation }) {
         </View>
         <View style={{ display: "flex", flexDirection: "row", }}>
           {renderPartList()}
+        </View>
+        <View style={styles.itemWrapper}>
+          <Text style={styles.headerText}>Miscellaneous</Text>
+        </View>
+
+        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+          <RenderMiscellaneousItem productType="Miscellaneous"/>
         </View>
       </ScrollView>
       <View style={styles.bottomBtnContainer}>
@@ -134,17 +192,26 @@ const styles = StyleSheet.create({
   },
   heading_title: {
     fontWeight: 'bold',
-    fontSize: hp('1.8%'),
+    fontSize: hp('1.6%'),
   },
   title: {
     fontSize: hp('1.2%'),
     flex: 1,
   },
   quantity: {
-    width: '40%',
+    width: '35%',
+  },
+  partListLabel: {
+    fontWeight: 'bold',
+    fontSize: hp('1.6%'),
+    backgroundColor: '#abc5d4', 
+    width: '32%', 
+    padding: 15, 
+    textAlign: 'center', 
+    textTransform: 'uppercase',
   },
   label: {
-    width: '60%',
+    width: '65%',
   },
   quantityInput: {
     width: '100%',
@@ -198,6 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   headerText: {
+    textTransform: 'uppercase',
     fontSize: hp('2%'),
     fontWeight: 'bold',
     color: '#fff',
