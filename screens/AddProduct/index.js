@@ -6,7 +6,6 @@ import uuid from 'react-native-uuid';
 
 import Button from "../../components/button"
 import data from "../../data.json"
-import data1 from "../../data1.json"
 
 function replaceName(name) {
   return name.replace(/ /g, "_").toLowerCase()
@@ -22,8 +21,9 @@ export default function AddProductScreen({ navigation }) {
       updatedList.push({ itemNo: index, productType: "Apple", productName, productKeyName: replaceName(productName), quantity: "", id: uuid.v4() })
     })
 
-    Object.keys(data1).map(productType => {
-      data1[productType].forEach((productName, index) => {
+    
+    Object.keys(data["Samsung"]).map(productType => {
+      data["Samsung"][productType].forEach((productName, index) => {
         let len = updatedList.length
         updatedList.push({ itemNo: len, productType, productName, productKeyName: replaceName(productName), quantity: "", id: uuid.v4() })
       })
@@ -68,10 +68,7 @@ export default function AddProductScreen({ navigation }) {
 
   const MiscellaneousItem = ({ index}) => {
     return (
-      <View style={[styles.item, {width: '50%'}]}>
-        {/* <View>
-          <Text style={styles.title}>Miscellaneous</Text>
-        </View> */}
+      <View style={[styles.item, {margin: '1%', width: '48%'}]}>
         <View style={[styles.quantity, styles.border, {width : '65%'}]}>
           <TextInput
             style={styles.quantityInput}
@@ -136,7 +133,7 @@ export default function AddProductScreen({ navigation }) {
 
     
   const renderPartList = () => {
-    return Object.keys(data1).map(productType => {
+    return Object.keys(data["Samsung"]).map(productType => {
       return (<View style={styles.itemArrangement} key={productType}>
                 <PartListHeader title={productType}/>
                 <Heading />

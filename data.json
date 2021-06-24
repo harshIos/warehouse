@@ -31,6 +31,44 @@
         "I65 BS",
         "I6S PLUS"
     ],
+    "Samsung" : {
+        "Samsung S20 Plus": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "Bad Touch",
+            "Small Dot",
+            "Big Dot",
+            "Fully Broken",
+            "Ripped Flex",
+            "Heavy Shadow"
+        ],
+        "Samsung Note 9": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "Bad Touch",
+            "Small Dot",
+            "Big Dot",
+            "Fully Broken",
+            "Ripped Flex",
+            "Heavy Shadow"
+        ],
+        "Samsung S20 Ultra": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "Bad Touch",
+            "Small Dot",
+            "Big Dot",
+            "Fully Broken",
+            "Ripped Flex",
+            "Heavy Shadow"
+        ]
+    },
     "Miscellaneous" : [
         "Miscellaneous-1",
         "Miscellaneous-2"
