@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
         /* borderRadius: 10, */
         padding: 20,
         backgroundColor: '#e8effa',
-        width: wp('96%')
+        width: wp('100%')
     },
     headerText: {
         fontSize: hp('2%'),
         fontWeight: 'bold',
     },
     itemWrapper: {
-        width: '37%'
+        width: '35%'
     }
 });
 

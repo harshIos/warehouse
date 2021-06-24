@@ -17,8 +17,9 @@ export default function ProductListScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#2099e7" />
-      <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start', padding: 20, width: '100%' }}>
         <FlatList
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
           data={data}
           ListEmptyComponent={() => <View style={styles.item}><Text style={styles.title}>No Products added</Text></View>}
           ItemSeparatorComponent={() => <View style={styles.listItemSeparator} />}
@@ -27,7 +28,6 @@ export default function ProductListScreen({ navigation, route }) {
           keyExtractor={item => item.id}
           ListHeaderComponent={<Header title1="Product Type" title2="Product Name" title3="Quantity" />}
         />
-      </View>
       <View style={styles.btnContainer}>
         <Button onPress={() => navigation.goBack()} title="CANCEL" width={"48%"} type="light" />
         <Button onPress={() => navigation.navigate('Home')} title="SUBMIT" width={"48%"} />
