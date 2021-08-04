@@ -12,6 +12,8 @@ target 'warehouse' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-view-shot', :path => '../node_modules/react-native-view-shot'
+
   target 'warehouseTests' do
     inherit! :complete
     # Pods for testing
