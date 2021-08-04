@@ -30,10 +30,10 @@ const Home = ({ navigation, route }) => {
             </View>
             <View style={styles.info}>
                 <View style={styles.subInfo}>
-                    <Card title="Customer Information" value="Reference Number" />
-                    <Card title="Contact Information" value="Reference Number" />
-                    <Card title="Account Name" value="Reference Number" />
-                    <Card title="Address" value="Reference Number" addedClasses={styles.addressInfoContainer}/>
+                    <Card title="Customer Information" value="XYZ" />
+                    <Card title="Contact Information" value="9XXXXXXXX2" />
+                    <Card title="Account Name" value="John Milton" />
+                    <Card title="Address" value="675 Old House Drive" addedClasses={styles.addressInfoContainer}/>
                 </View>
                 <Button onPress={() => navigation.navigate('SelectCountry')} title="NEXT"/>
             </View>
