@@ -114,15 +114,15 @@ export default function ProductListScreen({navigation, route}) {
             />
           }
         />
-        <View style={styles.btnContainer}>
-          <Button
-            onPress={() => navigation.goBack()}
-            title="CANCEL"
-            width={'48%'}
-            type="light"
-          />
-          <Button onPress={downloadImage} title="SUBMIT" width={'48%'} />
-        </View>
+      </View>
+      <View style={styles.btnContainer}>
+        <Button
+          onPress={() => navigation.goBack()}
+          title="CANCEL"
+          width={'48%'}
+          type="light"
+        />
+        <Button onPress={downloadImage} title="SUBMIT" width={'48%'} />
       </View>
     </SafeAreaView>
   );
