@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import uuid from 'react-native-uuid';
+import {PDFDocument, rgb} from 'pdf-lib';
 
 import Button from '../../components/button';
 import data from '../../data.json';
@@ -180,6 +181,27 @@ export default function AddProductScreen({navigation}) {
     });
   };
 
+  async function createPdf() {
+    const pdfDoc = await PDFDocument.create();
+
+    const page = pdfDoc.addPage();
+    const {width, height} = page.getSize();
+    const fontSize = 12;
+    page.drawText('Creating PDFs in JavaScript is awesome!', {
+      x: 15,
+      y: height - 2 * fontSize,
+      size: fontSize,
+      color: rgb(0, 0, 0), //rgb(0, 0.53, 0.71),
+    });
+
+    const pdfBytes = await pdfDoc.saveAsBase64();
+    const pdfAsDataUri = {
+      uri: 'data:application/pdf;base64,' + pdfBytes,
+    };
+
+    navigation.navigate('ProductList', {pdfAsDataUri});
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#2099e7" />
@@ -216,11 +238,7 @@ export default function AddProductScreen({navigation}) {
           width={'48%'}
           type="light"
         />
-        <Button
-          onPress={() => navigation.navigate('ProductList', {inputList})}
-          title="SAVE"
-          width={'48%'}
-        />
+        <Button onPress={() => createPdf()} title="SAVE" width={'48%'} />
       </View>
     </SafeAreaView>
   );
