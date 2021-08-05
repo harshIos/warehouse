@@ -23,6 +23,10 @@ function replaceName(name) {
   return name.replace(/ /g, '_').toLowerCase();
 }
 
+const filterEmptyRows = rows => {
+  return rows.filter(item => item.productName !== '' && item.quantity !== '');
+};
+
 export default function AddProductScreen({navigation}) {
   const [inputList, setInputList] = useState([]);
 
@@ -182,16 +186,38 @@ export default function AddProductScreen({navigation}) {
   };
 
   async function createPdf() {
+    const data = filterEmptyRows(inputList);
     const pdfDoc = await PDFDocument.create();
 
     const page = pdfDoc.addPage();
     const {width, height} = page.getSize();
     const fontSize = 12;
-    page.drawText('Creating PDFs in JavaScript is awesome!', {
+    /* page.drawText('Data: ', {
       x: 15,
       y: height - 2 * fontSize,
       size: fontSize,
       color: rgb(0, 0, 0), //rgb(0, 0.53, 0.71),
+    }); */
+    data.forEach((item, index) => {
+      console.log(item);
+      page.drawText(item.productType, {
+        x: 15,
+        y: height - (3 + index) * fontSize,
+        size: fontSize,
+        color: rgb(0, 0, 0), //rgb(0, 0.53, 0.71),
+      });
+      page.drawText(item.productName, {
+        x: 75,
+        y: height - (3 + index) * fontSize,
+        size: fontSize,
+        color: rgb(0, 0, 0), //rgb(0, 0.53, 0.71),
+      });
+      page.drawText(item.quantity, {
+        x: 240,
+        y: height - (3 + index) * fontSize,
+        size: fontSize,
+        color: rgb(0, 0, 0), //rgb(0, 0.53, 0.71),
+      });
     });
 
     const pdfBytes = await pdfDoc.saveAsBase64();
